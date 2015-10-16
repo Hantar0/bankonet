@@ -67,6 +67,7 @@ public class Launcher {
 		}
 
 		loadInterface();
+		
 	}
 
 	private static void logIn() {
