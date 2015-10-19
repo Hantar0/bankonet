@@ -4,42 +4,45 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import com.bankonet.cache.MapClient;
-import com.bankonet.cache.MapCompte;
+import com.bankonet.cache.CacheClient;
+import com.bankonet.constantes.TypeCompte;
+import com.bankonet.cache.CacheAccount;
 import com.bankonet.dao.DaoFactory;
 import com.bankonet.dao.DaoFactoryFile;
 import com.bankonet.dao.DaoFactoryMySql;
 import com.bankonet.dao.GestionFichier;
 import com.bankonet.dao.client.ClientDao;
 import com.bankonet.dao.compte.CompteDao;
-import com.bankonet.metier.Client;
+import com.bankonet.dto.Client;
 import com.bankonet.metier.ImportFile;
-import com.bankonet.metier.SaveFiles;
+import com.bankonet.metier.SyncDataService;
 import com.bankonet.metier.StopApp;
-import com.bankonet.metier.UpdateAccount;
+import com.bankonet.metier.UserService;
 
 public class ClientApp {
 
 	private String login;
 	private Client user;
-	private MapClient mapClient = new MapClient();
-	private MapCompte mapCompte = new MapCompte();
-	private GestionFichier gestionFichier = new GestionFichier(mapClient, mapCompte);
+	private CacheClient cacheClient = new CacheClient();
+	private CacheAccount cacheCompte = new CacheAccount();
+	private RecupKeyEntry recupKeyEntry = new RecupKeyEntry(cacheCompte);
+	private GestionFichier gestionFichier = new GestionFichier(cacheClient, cacheCompte);
 	private ImportFile importFile = new ImportFile(gestionFichier);
 	private DaoFactory daoFactory;
-	private UpdateAccount updateAccount;
+	private UserService userService;
 	private CompteDao compteDao;
 	private ClientDao clientDao;
-	private SaveFiles saveFile;
+	private SyncDataService saveFile;
 	private StopApp stopApp;
+	private manageAccount manageAccount;
 
 	public void start(String dao) throws Exception {
 		switch (dao) {
 		case "Files":
-			daoFactory = new DaoFactoryFile(gestionFichier, mapClient, mapCompte);
+			daoFactory = new DaoFactoryFile(gestionFichier, cacheClient, cacheCompte);
 			break;
 		case "MySql":
-			daoFactory = new DaoFactoryMySql(mapClient, mapCompte);
+			daoFactory = new DaoFactoryMySql(cacheClient, cacheCompte);
 			break;
 		default:
 			throw new Exception();
@@ -47,16 +50,17 @@ public class ClientApp {
 
 		clientDao = daoFactory.getClientDao();
 		compteDao = daoFactory.getCompteDao();
-		saveFile = new SaveFiles(compteDao, clientDao);
+		saveFile = new SyncDataService(compteDao, clientDao);
 		stopApp = new StopApp(saveFile);
 
 		// import des datas
 		importFile.importF();
 		logIn();
-		updateAccount = new UpdateAccount(daoFactory, user, saveFile, mapCompte);
+		userService = new UserService(daoFactory, user, cacheCompte);
+		manageAccount = new manageAccount(userService, recupKeyEntry, user, cacheCompte);
 		loadInterface();
 
-		saveFile.saveData();
+		saveFile.sync();
 
 	}
 
@@ -67,6 +71,8 @@ public class ClientApp {
 
 		BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
 		String line = "";
+		String[] result = {};
+
 		try {
 			line = keyboard.readLine();
 		} catch (IOException e) {
@@ -83,15 +89,15 @@ public class ClientApp {
 			break;
 
 		case "2":
-			updateAccount.manage("deposit");
+			manageAccount.manage("deposit");
 			break;
 
 		case "3":
-			updateAccount.manage("withdrawal");
+			manageAccount.manage("withdrawl");
 			break;
 
 		case "4":
-			updateAccount.transfer();
+			manageAccount.transfer(cacheClient, cacheCompte, user);
 			break;
 
 		default:
@@ -115,7 +121,7 @@ public class ClientApp {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		user = mapClient.getClient(login);
+		user = cacheClient.getClient(login);
 		if (user == null) {
 			System.out.println("Ce client n'éxiste pas !");
 			logIn();
