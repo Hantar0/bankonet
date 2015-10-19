@@ -4,20 +4,24 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import com.bankonet.cache.MapClient;
-import com.bankonet.cache.MapCompte;
+import com.bankonet.cache.CacheClient;
+import com.bankonet.cache.CacheAccount;
 import com.bankonet.constantes.TypeCompte;
+import com.bankonet.dto.Client;
+import com.bankonet.dto.Compte;
+import com.bankonet.dto.CompteCourant;
+import com.bankonet.dto.CompteEpargne;
 
-public class CreateData {
+public class BankOfficerService {
 	private String login;
 	private String nom;
 	private String prenom;
 	private String mdp;
-	private MapClient mapClient;
-	private SaveFiles saveFiles;
-	private MapCompte mapCompte;
+	private CacheClient mapClient;
+	private SyncDataService saveFiles;
+	private CacheAccount mapCompte;
 
-	public CreateData(MapClient mapClient, SaveFiles saveFiles, MapCompte mapCompte) {
+	public BankOfficerService(CacheClient mapClient, SyncDataService saveFiles, CacheAccount mapCompte) {
 		this.login = "";
 		this.nom = "";
 		this.prenom = "";
@@ -48,7 +52,7 @@ public class CreateData {
 				setDiscovered(client);
 			}
 		}
-		saveFiles.saveData();
+		saveFiles.sync();
 	}
 
 	private void setDiscovered(Client client) {
@@ -131,7 +135,7 @@ public class CreateData {
 		Client client = new Client(nom, prenom, login, mdp);
 		newAccount(TypeCompte.CC, client);
 		if (mapClient.ajouterClient(client)) {
-			saveFiles.saveData();
+			saveFiles.sync();
 		}
 	}
 }

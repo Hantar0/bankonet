@@ -1,13 +1,15 @@
-package com.bankonet;
+package com.bankonet.cache;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class MapClient {
-	static Map<String,Client> listClient = new HashMap<>();
+import com.bankonet.dto.Client;
 
-	public static boolean ajouterClient(Client client) {
+public class CacheClient {
+	public Map<String,Client> listClient = new HashMap<>();
+
+	public boolean ajouterClient(Client client) {
 		if (!listClient.containsKey(client.getLogin())) {			
 			listClient.put(client.getLogin(),client);
 			return true;
@@ -15,21 +17,21 @@ public class MapClient {
 		return false;
 	}
 	
-	public static Client getClient(String login) {
+	public  Client getClient(String login) {
 		return listClient.get(login);
 	}
 	
-	public static String showData() {
+	public  String showData() {
 		String data="";
-		for(Entry<String, Client> entry : MapClient.listClient.entrySet()) {
+		for(Entry<String, Client> entry : listClient.entrySet()) {
 			data += entry.getValue().getInfo()+"\n";
 		}
 		return data;
 	}
 	
-	public static String showLoginClient() {
+	public String showLoginClient() {
 		String data="";
-		for(Entry<String, Client> entry : MapClient.listClient.entrySet()) {
+		for(Entry<String, Client> entry : listClient.entrySet()) {
 			data += entry.getValue().getLogin()+"\n";
 		}
 		return data;

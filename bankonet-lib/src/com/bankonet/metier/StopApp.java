@@ -1,9 +1,9 @@
 package com.bankonet.metier;
 
 public class StopApp {
-	SaveFiles saveFiles;	
+	SyncDataService saveFiles;	
 	
-	public StopApp(SaveFiles saveFiles) {
+	public StopApp(SyncDataService saveFiles) {
 		this.saveFiles = saveFiles;
 	}
 
@@ -11,7 +11,7 @@ public class StopApp {
 	public void Stop() {
 		System.out.println("Close BDD");
 		System.out.println("Close Application");
-		saveFiles.saveData();
+		saveFiles.sync();
 		System.exit(0);
 	}
 }

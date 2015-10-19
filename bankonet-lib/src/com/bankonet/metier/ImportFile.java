@@ -1,6 +1,6 @@
 package com.bankonet.metier;
 
-import com.bankonet.constantes.Constantes;
+import com.bankonet.constantes.Constants;
 import com.bankonet.dao.GestionFichier;
 
 public class ImportFile {
@@ -12,7 +12,7 @@ public class ImportFile {
 	}
 
 	public  void importF() {
-		gestionFichier.LireFichier(Constantes.fileComptes);
-		gestionFichier.LireFichier(Constantes.fileClient);
+		gestionFichier.LireFichier(Constants.fileComptes);
+		gestionFichier.LireFichier(Constants.fileClient);
 	}
 }

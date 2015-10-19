@@ -1,6 +1,8 @@
-package com.bankonet;
+package com.bankonet.dto;
 
 import java.util.ArrayList;
+
+import com.bankonet.constantes.TypeCompte;
 
 public class Client {
 	private String nom;
@@ -108,5 +110,9 @@ public class Client {
 		} else {
 			return listeComptesEpargnes.size();			
 		}
+	}
+	
+	public String getLibellesAccount () {
+		return getCCLibelle() + " " + getCELibelle();
 	}
 }

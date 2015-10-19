@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.bankonet.constantes.TypeCompte;
-import com.bankonet.metier.Compte;
-import com.bankonet.metier.CompteCourant;
-import com.bankonet.metier.CompteEpargne;
+import com.bankonet.dto.Compte;
+import com.bankonet.dto.CompteCourant;
+import com.bankonet.dto.CompteEpargne;
 
-public class MapCompte {
+public class CacheAccount {
 	private Map<String,CompteCourant> listCC = new HashMap<>();
 	private Map<String,CompteEpargne> listCE = new HashMap<>();
 

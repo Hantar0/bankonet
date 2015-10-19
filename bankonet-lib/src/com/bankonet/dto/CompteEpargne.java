@@ -1,4 +1,4 @@
-package com.bankonet;
+package com.bankonet.dto;
 
 public class CompteEpargne extends Compte {
 	String login;

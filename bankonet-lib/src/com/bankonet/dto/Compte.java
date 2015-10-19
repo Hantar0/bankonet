@@ -1,4 +1,4 @@
-package com.bankonet;
+package com.bankonet.dto;
 
 public  class Compte {
 

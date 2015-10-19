@@ -10,18 +10,18 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
-import com.bankonet.cache.MapClient;
-import com.bankonet.cache.MapCompte;
+import com.bankonet.cache.CacheClient;
+import com.bankonet.cache.CacheAccount;
 import com.bankonet.constantes.TypeCompte;
-import com.bankonet.metier.Client;
-import com.bankonet.metier.CompteCourant;
-import com.bankonet.metier.CompteEpargne;
+import com.bankonet.dto.Client;
+import com.bankonet.dto.CompteCourant;
+import com.bankonet.dto.CompteEpargne;
 
 public class GestionFichier {
-	MapClient mapClient;
-	MapCompte mapCompte;
+	CacheClient mapClient;
+	CacheAccount mapCompte;
 
-	public GestionFichier(MapClient mapClient, MapCompte mapCompte) {
+	public GestionFichier(CacheClient mapClient, CacheAccount mapCompte) {
 		this.mapClient = mapClient;
 		this.mapCompte = mapCompte;
 	}
