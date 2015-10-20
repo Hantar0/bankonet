@@ -17,7 +17,7 @@ import com.bankonet.dto.Client;
 import com.bankonet.dto.CompteCourant;
 import com.bankonet.dto.CompteEpargne;
 
-public class GestionFichier {
+public class GestionFichier extends GestionData {
 	CacheClient mapClient;
 	CacheAccount mapCompte;
 
@@ -40,8 +40,8 @@ public class GestionFichier {
 			System.out.println("Erreur lors de l'écriture : " + exception.getMessage());
 		}
 	}
-
-	public void LireFichier(String nomFichier) {
+	@Override
+	public void importData(String nomFichier) {
 		String[] splitElements = null;
 		String[] splitFirstElement = null;
 		ArrayList<String> elements = new ArrayList<>();
@@ -91,7 +91,7 @@ public class GestionFichier {
 			}
 
 			if (ComptesE.length > 1) {
-				String[] listeCE = splitElements[3].split(":")[1].split(",");
+				String[] listeCE = ComptesE[1].split(":")[1].split(",");
 
 				for (int i = 0; i < listeCE.length; i++) {
 					client.addCompte(mapCompte.getCompte(listeCE[i], TypeCompte.CE), TypeCompte.CE);

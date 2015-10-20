@@ -1,12 +1,15 @@
 package com.bankonet.dao.client;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.Map.Entry;
 
 import com.bankonet.cache.CacheClient;
 import com.bankonet.constantes.Constants;
+import com.bankonet.dao.GestionData;
 import com.bankonet.dao.GestionFichier;
 import com.bankonet.dto.Client;
+import com.bankonet.dto.Compte;
 
 public class ClientDaoFile implements ClientDao {
 	GestionFichier GF;
@@ -25,4 +28,21 @@ public class ClientDaoFile implements ClientDao {
 			GF.ajouterDansFichier(Constants.fileClient, entry.getValue().toString());
 		}
 	}
+
+	@Override
+	public void addClient(Client client) {
+		saveClients();
+	}
+
+	@Override
+	public void updateClient(Client client) {
+		saveClients();
+	}
+
+	@Override
+	public void importData(GestionData gestionData) throws SQLException {
+		gestionData.importData(Constants.fileClient);			
+	}
+
+
 }

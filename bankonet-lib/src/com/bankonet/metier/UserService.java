@@ -17,26 +17,35 @@ public class UserService {
 	private String account = "";
 	private Client user;
 	private String libelleAccounts = "";
-	private DaoFactoryFile daoFactoryFile;
+	private DaoFactory daoFactory;
 	private CacheAccount cacheCompte;
 
 	public UserService(DaoFactory daoFactory, Client user, CacheAccount cacheCompte) {
 		this.user = user;
-		this.daoFactoryFile = (DaoFactoryFile) daoFactory;
 		this.cacheCompte = cacheCompte;
+		this.daoFactory=daoFactory;
 	}
 
-	public String[] manage(String action, String account, Double sum) throws soldeLimitException {
+	public String[] manage(String action, String account, Double sum, boolean commit) throws SoldeLimitException {
 
 		if (action.equals("deposit")) {
 			deposit(account, sum);
 		} else if (action.equals("withdrawl")) {
 			withdrawl(account, sum);
 		}
-
-		String finalSolde = "" + cacheCompte.getCompte(account, TypeCompte.CC).getSolde();
-		daoFactoryFile.getCompteDao().saveComptes();
+		TypeCompte type = null;
+		if(account.contains("COURANT")){
+			type = TypeCompte.CC;
+		} else {
+			type = TypeCompte.CE;
+		}
+		Compte compte = cacheCompte.getCompte(account, type);
+		String finalSolde = "" + compte.getSolde();		
 		String[] toPrint = { account, finalSolde };
+		
+		if(commit) {
+			daoFactory.getCompteDao().updatesComptes(compte);			
+		}
 		return toPrint;
 	}
 
@@ -52,16 +61,16 @@ public class UserService {
 	public void deposit(String account, double sum) {
 		Compte chosenAccountC = cacheCompte.getCompte(account, getType(account));
 		chosenAccountC.setSolde(sum);
-		daoFactoryFile.getCompteDao().saveComptes();
+		//daoFactoryFile.getCompteDao().saveComptes();
 	}
 
-	public void withdrawl(String accountD, double sum) throws soldeLimitException {
+	public void withdrawl(String accountD, double sum) throws SoldeLimitException {
 		Compte chosenAccountD = cacheCompte.getCompte(accountD, getType(accountD));
 		if (sum > chosenAccountD.getSolde()) {
-			throw new soldeLimitException();
+			throw new SoldeLimitException();
 		}
 		chosenAccountD.setSolde(-sum);
-		daoFactoryFile.getCompteDao().saveComptes();
+		//daoFactoryFile.getCompteDao().saveComptes();
 	}
 
 	private TypeCompte getType(String account) {

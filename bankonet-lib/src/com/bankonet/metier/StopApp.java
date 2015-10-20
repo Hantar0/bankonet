@@ -11,7 +11,7 @@ public class StopApp {
 	public void Stop() {
 		System.out.println("Close BDD");
 		System.out.println("Close Application");
-		saveFiles.sync();
+		saveFiles.syncFiles();
 		System.exit(0);
 	}
 }

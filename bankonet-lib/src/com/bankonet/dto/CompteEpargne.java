@@ -7,7 +7,7 @@ public class CompteEpargne extends Compte {
 	String libelle = "";
 	
 	public CompteEpargne(String login, String nom, String prenom, int nbCompteEpargnes) {
-		super("", 0);
+		super("", 0, nom, prenom, login);
 		this.login = login;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -17,7 +17,7 @@ public class CompteEpargne extends Compte {
 	}
 
 	public CompteEpargne(String login, String nom, String prenom, double solde, String numero, String libelle) {
-		super(numero, solde);
+		super(numero, solde, nom, prenom, login);
 		this.login = login;
 		this.nom = nom;
 		this.prenom = prenom;

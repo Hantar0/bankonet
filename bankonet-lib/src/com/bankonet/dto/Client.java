@@ -104,15 +104,15 @@ public class Client {
 		return infos;
 	}
 
-	public int  getNumberAccount(TypeCompte cc) {
-		if(cc.equals(TypeCompte.CC)) {
+	public int getNumberAccount(TypeCompte cc) {
+		if (cc.equals(TypeCompte.CC)) {
 			return listeComptesCourants.size();
 		} else {
-			return listeComptesEpargnes.size();			
+			return listeComptesEpargnes.size();
 		}
 	}
-	
-	public String getLibellesAccount () {
+
+	public String getLibellesAccount() {
 		return getCCLibelle() + " " + getCELibelle();
 	}
 }
