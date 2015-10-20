@@ -2,14 +2,11 @@ package com.bankonet.presentation;
 
 public class Launcher {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		ConseillerApp app = new ConseillerApp();
-		try {
-			app.start(args[0]);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		app.start(args[0]);
+	
 	}
 
 }

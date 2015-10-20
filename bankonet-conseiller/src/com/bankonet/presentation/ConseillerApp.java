@@ -3,56 +3,71 @@ package com.bankonet.presentation;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 
-import com.bankonet.cache.MapClient;
-import com.bankonet.cache.MapCompte;
+import com.bankonet.cache.CacheClient;
+import com.bankonet.cache.CacheAccount;
 import com.bankonet.constantes.TypeCompte;
+import com.bankonet.dao.ConnectionSQL;
 import com.bankonet.dao.DaoFactory;
 import com.bankonet.dao.DaoFactoryFile;
 import com.bankonet.dao.DaoFactoryMySql;
 import com.bankonet.dao.GestionFichier;
+import com.bankonet.dao.GestionMySQL;
 import com.bankonet.dao.client.ClientDao;
 import com.bankonet.dao.compte.CompteDao;
-import com.bankonet.metier.CreateData;
-import com.bankonet.metier.ImportFile;
-import com.bankonet.metier.SaveFiles;
+import com.bankonet.metier.SyncDataService;
 import com.bankonet.metier.StopApp;
 
 public class ConseillerApp {
-	private MapClient mapClient = new MapClient();
-	private MapCompte mapCompte = new MapCompte();
+	private CacheClient mapClient = new CacheClient();
+	private CacheAccount mapCompte = new CacheAccount();
 	private GestionFichier gestionFichier = new GestionFichier(mapClient, mapCompte);
-	private ImportFile importFile = new ImportFile(gestionFichier);
+	private GestionMySQL gestionMySQL = new GestionMySQL(mapClient, mapCompte);
 	private DaoFactory daoFactory;
-	private CreateData createData;
+	private BankOfficerService createData;
 	private CompteDao compteDao;
 	private ClientDao clientDao;
-	private SaveFiles saveFile;
+	private SyncDataService saveFile;
 	private StopApp stopApp;
 
-	public void start(String dao) throws Exception {
+	public void start(String dao) {
 		switch (dao) {
 		case "Files":
 			daoFactory = new DaoFactoryFile(gestionFichier, mapClient, mapCompte);
+			clientDao = daoFactory.getClientDao();
+			compteDao = daoFactory.getCompteDao();
+			try {
+				compteDao.importData(gestionFichier);
+				clientDao.importData(gestionFichier);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			break;
 		case "MySql":
 			daoFactory = new DaoFactoryMySql(mapClient, mapCompte);
+			clientDao = daoFactory.getClientDao();
+			compteDao = daoFactory.getCompteDao();
+			try {
+				compteDao.importData(gestionMySQL);
+				clientDao.importData(gestionMySQL);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			break;
 		default:
-			throw new Exception();
+			System.exit(0);
 		}
-
-		clientDao = daoFactory.getClientDao();
-		compteDao = daoFactory.getCompteDao();
-		saveFile = new SaveFiles(compteDao, clientDao);
+		saveFile = new SyncDataService(compteDao, clientDao);
 		stopApp = new StopApp(saveFile);
 
 		// import des datas
-		importFile.importF();
-		createData = new CreateData(mapClient, saveFile, mapCompte);
+		
+		
+		createData = new BankOfficerService(mapClient, saveFile, mapCompte);
 		loadInterface();
 
-		saveFile.saveData();
+		saveFile.syncFiles();
 
 	}
 	
