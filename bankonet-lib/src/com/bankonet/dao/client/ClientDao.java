@@ -13,4 +13,10 @@ public interface ClientDao {
 	public void updateClient(Client client);
 
 	public void importData(GestionData gestionData) throws SQLException;
+
+	public Client findClient(String libelleSearch, String column);
+
+	void delete(Client client);
+
+	public void truncateTable();
 }

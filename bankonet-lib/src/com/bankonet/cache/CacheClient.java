@@ -37,4 +37,12 @@ public class CacheClient {
 		return data;
 	}
 
+	public void remove(Client client) {
+		listClient.remove(client.getLogin());		
+	}
+
+	public void clean() {
+		listClient.clear();
+	}
+
 }

@@ -5,13 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Map.Entry;
 
+import com.bankonet.cache.CacheCompte;
 import com.bankonet.cache.CacheClient;
-import com.bankonet.cache.CacheAccount;
 import com.bankonet.constantes.TypeCompte;
 import com.bankonet.dto.Client;
 import com.bankonet.dto.CompteCourant;
@@ -19,9 +16,9 @@ import com.bankonet.dto.CompteEpargne;
 
 public class GestionFichier extends GestionData {
 	CacheClient mapClient;
-	CacheAccount mapCompte;
+	CacheCompte mapCompte;
 
-	public GestionFichier(CacheClient mapClient, CacheAccount mapCompte) {
+	public GestionFichier(CacheClient mapClient, CacheCompte mapCompte) {
 		this.mapClient = mapClient;
 		this.mapCompte = mapCompte;
 	}
@@ -40,6 +37,7 @@ public class GestionFichier extends GestionData {
 			System.out.println("Erreur lors de l'écriture : " + exception.getMessage());
 		}
 	}
+
 	@Override
 	public void importData(String nomFichier) {
 		String[] splitElements = null;

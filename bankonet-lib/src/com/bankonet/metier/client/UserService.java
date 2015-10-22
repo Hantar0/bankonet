@@ -1,15 +1,16 @@
-package com.bankonet.metier;
+package com.bankonet.metier.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import com.bankonet.cache.CacheAccount;
+import com.bankonet.cache.CacheCompte;
 import com.bankonet.constantes.TypeCompte;
 import com.bankonet.dao.DaoFactory;
 import com.bankonet.dao.DaoFactoryFile;
 import com.bankonet.dto.Client;
 import com.bankonet.dto.Compte;
+import com.bankonet.metier.SoldeLimitException;
 
 public class UserService {
 
@@ -18,9 +19,9 @@ public class UserService {
 	private Client user;
 	private String libelleAccounts = "";
 	private DaoFactory daoFactory;
-	private CacheAccount cacheCompte;
+	private CacheCompte cacheCompte;
 
-	public UserService(DaoFactory daoFactory, Client user, CacheAccount cacheCompte) {
+	public UserService(DaoFactory daoFactory, Client user, CacheCompte cacheCompte) {
 		this.user = user;
 		this.cacheCompte = cacheCompte;
 		this.daoFactory=daoFactory;

@@ -1,50 +1,63 @@
 package com.bankonet.dto;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "compte")
+@DiscriminatorValue("C")
 public class CompteCourant extends Compte {
-	String login;
-	String nom;
-	String prenom;
-	private String libelle = "";
-	double découvertAutorise=200;
+	// Integer id;
+	/*
+	 * String login; String nom; String prenom; private String libelle = "";
+	 * private Double solde;
+	 */
+
+	@Transient
+	Double découvertAutorise = 200.0;
+
+	public CompteCourant() {
+	}
 
 	public CompteCourant(String login, String nom, String prenom, int nbCompteCourants) {
-		super("", 0, nom, prenom, login);
-		this.login = login;
-		this.nom = nom;
-		this.prenom = prenom;
+		super("", 0.0, nom, prenom, login);
+		super.setLogin(login);
+		super.setNom(nom);
+		super.setPrenom(prenom);
 		nbCompteCourants++;
-		this.numero = "CC" + nbCompteCourants;
-		this.libelle = "[" + nom + "]_[" + prenom + "]_COURANT_" + nbCompteCourants;
+		super.setNumero("CC" + nbCompteCourants);
+		super.setLibelle("[" + nom + "]_[" + prenom + "]_COURANT_" + nbCompteCourants);
 	}
 
-	public CompteCourant(String login, String nom, String prenom, double solde, String numero, String libelle) {
+	public CompteCourant(String login, String nom, String prenom, Double solde, String numero, String libelle) {
 		super(numero, solde, nom, prenom, login);
-		this.login = login;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.numero = numero;
-		this.libelle = libelle;
-	}
-
-	public String getLibelle() {
-		return libelle;
+		super.setLogin(login);
+		super.setNom(nom);
+		super.setPrenom(prenom);
+		super.setNumero(numero);
+		super.setLibelle(libelle);
 	}
 
 	public String toString() {
-		return libelle + "=solde:" + super.getSolde() + "&nom:" + nom + "&prenom:" + prenom + "&login:" + login
-				+ "&numero:" + numero;
+		return super.getLibelle() + "=solde:" + super.getSolde() + "&nom:" + super.getNom() + "&prenom:" + super.getPrenom()
+				+ "&login:" + super.getLogin() + "&numero:" + super.getNumero();
 	}
-	
+
 	public String toStringUser() {
-		return libelle + "=solde:" + super.getSolde() + "&numero:" + numero;
+		return super.getLibelle() + "=solde:" + super.getSolde() + "&numero:" + super.getNumero();
 	}
-	
-	public double getDecouvert() {
+
+	public Double getDecouvert() {
 		return découvertAutorise;
 	}
-	
-	public void setDecouvert(double decouvert) {
+
+	public void setDecouvert(Double decouvert) {
 		découvertAutorise = decouvert;
 	}
-	
+
+	public String getLibelle() {
+		return super.getLibelle();
+	}
 }

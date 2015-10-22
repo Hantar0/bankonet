@@ -9,7 +9,6 @@ import com.bankonet.constantes.Constants;
 import com.bankonet.dao.GestionData;
 import com.bankonet.dao.GestionFichier;
 import com.bankonet.dto.Client;
-import com.bankonet.dto.Compte;
 
 public class ClientDaoFile implements ClientDao {
 	GestionFichier GF;
@@ -42,6 +41,24 @@ public class ClientDaoFile implements ClientDao {
 	@Override
 	public void importData(GestionData gestionData) throws SQLException {
 		gestionData.importData(Constants.fileClient);			
+	}
+
+	@Override
+	public Client findClient(String libelleSearch, String column) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(Client client) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void truncateTable() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

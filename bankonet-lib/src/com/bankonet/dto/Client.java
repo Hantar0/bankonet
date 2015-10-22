@@ -2,21 +2,50 @@ package com.bankonet.dto;
 
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
 import com.bankonet.constantes.TypeCompte;
 
+@Entity
+// @Table(name='client')
 public class Client {
+
+	@Id
+	@GeneratedValue
+	private Integer id;
+
 	private String nom;
 	private String prenom;
 	private String login;
 	private String mdp;
+	private String comptes_courant;
+	private String comptes_epargne;
+
+	@Transient
 	private ArrayList<CompteCourant> listeComptesCourants = new ArrayList<>();
+	@Transient
 	private ArrayList<CompteEpargne> listeComptesEpargnes = new ArrayList<>();
+
+	public Client() {
+
+	}
 
 	public Client(String nom, String prenom, String login, String mdp) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.login = login;
 		this.mdp = mdp;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNom() {
@@ -51,6 +80,30 @@ public class Client {
 		this.mdp = mdp;
 	}
 
+	public String getComptes_courant() {
+		return comptes_courant;
+	}
+
+	public void setComptes_courant(String comptesC) {
+		if(comptes_courant!=null&&comptes_courant.contains("[")) {
+			this.comptes_courant +=","+ comptesC;
+		} else {
+			this.comptes_courant = ""+ comptesC;
+		}
+	}
+
+	public String getComptes_epargne() {
+		return comptes_epargne;
+	}
+
+	public void setComptes_epargne(String comptesE) {
+		if(comptes_epargne!=null&&comptes_epargne.contains("[")) {
+			this.comptes_epargne +=","+ comptesE;
+		} else {
+			this.comptes_epargne = ""+ comptesE;
+		}
+	}
+
 	public String getCCLibelle() {
 		String libelle = "";
 		for (CompteCourant cc : listeComptesCourants) {
@@ -59,6 +112,7 @@ public class Client {
 		if (libelle.length() > 0) {
 			libelle = libelle.substring(0, libelle.length() - 1);
 		}
+
 		return libelle;
 	}
 
@@ -71,12 +125,12 @@ public class Client {
 		if (libelle.length() > 0) {
 			libelle = libelle.substring(0, libelle.length() - 1);
 		}
+
 		return libelle;
 	}
 
 	public void addCompte(Compte compte, TypeCompte type) {
 		if (type == TypeCompte.CC) {
-
 			listeComptesCourants.add((CompteCourant) compte);
 		} else {
 			listeComptesEpargnes.add((CompteEpargne) compte);
@@ -85,7 +139,7 @@ public class Client {
 
 	public String toString() {
 		return login + "=nom:" + nom + "&prenom:" + prenom + "&comptes_courants:" + getCCLibelle()
-				+ "&comptes_epargnes:" + getCELibelle() + "&mdp:" + getMdp();
+				+ "&comptes_epargnes:" + getCELibelle() + "&mdp:" + getMdp() + "&id:" + getId();
 	}
 
 	public String getInfo() {

@@ -4,9 +4,7 @@ import java.sql.SQLException;
 
 import com.bankonet.dao.ConnectionSQL;
 import com.bankonet.dao.GestionData;
-import com.bankonet.dao.GestionFichier;
 import com.bankonet.dto.Client;
-import com.bankonet.dto.Compte;
 
 public class ClientDaoMySql implements ClientDao {
 
@@ -24,7 +22,7 @@ public class ClientDaoMySql implements ClientDao {
 		connectionSQL = new ConnectionSQL();
 		connectionSQL.connectBDD();
 
-		request = "INSERT INTO CLIENTS(`login`,`nom`,`prenom`,`mdp`,`comptes_courant`,`comptes_epargne`) VALUES " + "('"
+		request = "INSERT INTO CLIENT(`login`,`nom`,`prenom`,`mdp`,`comptes_courant`,`comptes_epargne`) VALUES " + "('"
 				+ client.getLogin() + "', '" + client.getNom() + "', '" + client.getPrenom() + "', '" + client.getMdp()
 				+ "', '" + client.getCCLibelle() + "', '" + client.getCELibelle() + "')";
 
@@ -37,7 +35,7 @@ public class ClientDaoMySql implements ClientDao {
 		connectionSQL = new ConnectionSQL();
 		connectionSQL.connectBDD();
 
-		request = "UPDATE CLIENTS SET comptes_courant ='" + client.getCCLibelle() + "', comptes_epargne ='"
+		request = "UPDATE CLIENT SET comptes_courant ='" + client.getCCLibelle() + "', comptes_epargne ='"
 				+ client.getCELibelle() + "' WHERE login ='" + client.getLogin()+"'";
 		;
 
@@ -49,6 +47,24 @@ public class ClientDaoMySql implements ClientDao {
 	public void importData(GestionData gestionData) throws SQLException {
 		gestionData.importData("Clients");
 
+	}
+
+	@Override
+	public Client findClient(String libelleSearch, String column) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(Client client) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void truncateTable() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

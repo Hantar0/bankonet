@@ -4,20 +4,19 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.Map.Entry;
 
-import com.bankonet.cache.CacheAccount;
+import com.bankonet.cache.CacheCompte;
 import com.bankonet.constantes.Constants;
 import com.bankonet.dao.GestionData;
 import com.bankonet.dao.GestionFichier;
-import com.bankonet.dto.Client;
 import com.bankonet.dto.Compte;
 import com.bankonet.dto.CompteCourant;
 import com.bankonet.dto.CompteEpargne;
 
 public class CompteDaoFile implements CompteDao {
 	GestionFichier GF;
-	CacheAccount mapCompte;
+	CacheCompte mapCompte;
 
-	public CompteDaoFile(GestionFichier GF, CacheAccount mapCompte) {
+	public CompteDaoFile(GestionFichier GF, CacheCompte mapCompte) {
 		this.GF = GF;
 		this.mapCompte = mapCompte;
 	}

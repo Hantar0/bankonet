@@ -21,7 +21,7 @@ public class CompteDaoMySql implements CompteDao {
 		connectionSQL = new ConnectionSQL();
 		connectionSQL.connectBDD();
 
-		request = "UPDATE COMPTES SET solde =" + compte.getSolde() + " WHERE libelle ='" + compte.getLibelle()+"'";
+		request = "UPDATE COMPTE SET solde =" + compte.getSolde() + " WHERE libelle ='" + compte.getLibelle()+"'";
 		;
 
 		connectionSQL.BDDUpdate(request);
@@ -33,7 +33,7 @@ public class CompteDaoMySql implements CompteDao {
 		connectionSQL = new ConnectionSQL();
 		connectionSQL.connectBDD();
 		
-		request = "INSERT INTO COMPTES(`libelle`,`solde`,`numero`,`nom`,`prenom`,`login`) VALUES "+
+		request = "INSERT INTO COMPTE(`libelle`,`solde`,`numero`,`nom`,`prenom`,`login`) VALUES "+
 		"('"+compte.getLibelle()+"', "+compte.getSolde()+", '"+compte.getNumero()+"', '"+compte.getNom()+
 		"', '"+compte.getPrenom()+"', '"+compte.getLogin()+"')"
 		;

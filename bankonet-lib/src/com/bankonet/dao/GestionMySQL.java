@@ -3,7 +3,7 @@ package com.bankonet.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.bankonet.cache.CacheAccount;
+import com.bankonet.cache.CacheCompte;
 import com.bankonet.cache.CacheClient;
 import com.bankonet.constantes.TypeCompte;
 import com.bankonet.dto.Client;
@@ -13,12 +13,12 @@ import com.bankonet.dto.CompteEpargne;
 
 public class GestionMySQL extends GestionData {
 
-	private CacheAccount cacheCompte;
+	private CacheCompte cacheCompte;
 	private CacheClient cacheClient;
 	private ConnectionSQL connectionSQL;
 	private String request;
 
-	public GestionMySQL(CacheClient cacheClient, CacheAccount cacheCompte) {
+	public GestionMySQL(CacheClient cacheClient, CacheCompte cacheCompte) {
 		this.cacheClient = cacheClient;
 		this.cacheCompte = cacheCompte;
 	}
@@ -30,13 +30,13 @@ public class GestionMySQL extends GestionData {
 		ResultSet result;
 		if(typeTable.equals("Comptes")) {
 
-			request = "SELECT * FROM COMPTES";
+			request = "SELECT * FROM COMPTE";
 
 			result= connectionSQL.BDDQuery(request);
 			
 			while (result.next()) {
 				String libelle = result.getString("libelle");
-				int solde = result.getInt("solde");
+				Double solde = (double) result.getInt("solde");
 				String numero = result.getString("numero");
 				String login = result.getString("login");
 				String nom = result.getString("nom");
@@ -55,7 +55,7 @@ public class GestionMySQL extends GestionData {
 				
 			}
 		} else if(typeTable.equals("Clients")) {
-			request = "SELECT * FROM CLIENTS";
+			request = "SELECT * FROM CLIENT";
 
 			result = connectionSQL.BDDQuery(request);
 

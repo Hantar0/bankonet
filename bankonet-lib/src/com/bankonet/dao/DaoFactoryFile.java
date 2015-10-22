@@ -1,7 +1,7 @@
 package com.bankonet.dao;
 
 import com.bankonet.cache.CacheClient;
-import com.bankonet.cache.CacheAccount;
+import com.bankonet.cache.CacheCompte;
 import com.bankonet.dao.client.ClientDao;
 import com.bankonet.dao.client.ClientDaoFile;
 import com.bankonet.dao.compte.CompteDao;
@@ -10,9 +10,9 @@ import com.bankonet.dao.compte.CompteDaoFile;
 public class DaoFactoryFile implements DaoFactory {
 	GestionFichier GF;
 	CacheClient mapClient;
-	CacheAccount mapCompte;
+	CacheCompte mapCompte;
 	//On va récupérer les Dao pour le type file
-	public DaoFactoryFile(GestionFichier GF, CacheClient mapClient, CacheAccount mapCompte) {
+	public DaoFactoryFile(GestionFichier GF, CacheClient mapClient, CacheCompte mapCompte) {
 		this.GF=GF;		
 		this.mapClient=mapClient;
 		this.mapCompte=mapCompte;

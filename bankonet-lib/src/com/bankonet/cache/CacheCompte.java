@@ -8,7 +8,7 @@ import com.bankonet.dto.Compte;
 import com.bankonet.dto.CompteCourant;
 import com.bankonet.dto.CompteEpargne;
 
-public class CacheAccount {
+public class CacheCompte {
 	private Map<String,CompteCourant> listCC = new HashMap<>();
 	private Map<String,CompteEpargne> listCE = new HashMap<>();
 
