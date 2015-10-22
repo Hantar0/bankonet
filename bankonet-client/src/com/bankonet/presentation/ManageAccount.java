@@ -1,20 +1,20 @@
 package com.bankonet.presentation;
 
-import com.bankonet.cache.CacheAccount;
+import com.bankonet.cache.CacheCompte;
 import com.bankonet.cache.CacheClient;
 import com.bankonet.constantes.TypeCompte;
 import com.bankonet.dto.Client;
 import com.bankonet.dto.Compte;
 import com.bankonet.metier.SoldeLimitException;
-import com.bankonet.metier.UserService;
+import com.bankonet.metier.client.UserService;
 
 public class ManageAccount {
 	private UserService userService;
 	private RecupKeyEntry recupKeyEntry;
 	private Client user;
-	private CacheAccount cacheCompte;
+	private CacheCompte cacheCompte;
 
-	public ManageAccount(UserService userService, RecupKeyEntry recupKeyEntry, Client user, CacheAccount cacheCompte) {
+	public ManageAccount(UserService userService, RecupKeyEntry recupKeyEntry, Client user, CacheCompte cacheCompte) {
 		this.userService = userService;
 		this.recupKeyEntry = recupKeyEntry;
 		this.user = user;
@@ -65,7 +65,7 @@ public class ManageAccount {
 		return sum;
 	}
 
-	public void transfer(CacheClient mapClient, CacheAccount cacheCompte, Client user) {
+	public void transfer(CacheClient mapClient, CacheCompte cacheCompte, Client user) {
 		String libelleAccounts = user.getLibellesAccount();
 		System.out.println("Compte à débiter");
 		System.out.println("Comptes courants & épargnes : " + libelleAccounts.replace(",", " | "));

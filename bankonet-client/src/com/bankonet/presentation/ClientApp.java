@@ -15,7 +15,7 @@ import com.bankonet.commands.GetInfoCommand;
 import com.bankonet.commands.TransferCommand;
 import com.bankonet.commands.WithdrawlCommand;
 import com.bankonet.constantes.TypeCompte;
-import com.bankonet.cache.CacheAccount;
+import com.bankonet.cache.CacheCompte;
 import com.bankonet.dao.ConnectionSQL;
 import com.bankonet.dao.DaoFactory;
 import com.bankonet.dao.DaoFactoryFile;
@@ -27,8 +27,8 @@ import com.bankonet.dao.client.ClientDao;
 import com.bankonet.dao.compte.CompteDao;
 import com.bankonet.dto.Client;
 import com.bankonet.metier.SyncDataService;
+import com.bankonet.metier.client.UserService;
 import com.bankonet.metier.StopApp;
-import com.bankonet.metier.UserService;
 
 public class ClientApp {
 
@@ -36,7 +36,7 @@ public class ClientApp {
 	private String login;
 	private Client user;
 	private CacheClient cacheClient = new CacheClient();
-	private CacheAccount cacheCompte = new CacheAccount();
+	private CacheCompte cacheCompte = new CacheCompte();
 	private RecupKeyEntry recupKeyEntry = new RecupKeyEntry(cacheCompte);
 	private GestionFichier gestionFichier = new GestionFichier(cacheClient, cacheCompte);
 	private GestionMySQL gestionMySQL  = new GestionMySQL(cacheClient, cacheCompte);

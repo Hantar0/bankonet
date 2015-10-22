@@ -4,13 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import com.bankonet.cache.CacheAccount;
+import com.bankonet.cache.CacheCompte;
 import com.bankonet.constantes.TypeCompte;
 
 public class RecupKeyEntry {
-	private CacheAccount cacheCompte;
+	private CacheCompte cacheCompte;
 	
-	public RecupKeyEntry(CacheAccount cacheCompte) {
+	public RecupKeyEntry(CacheCompte cacheCompte) {
 		this.cacheCompte = cacheCompte;
 	}
 

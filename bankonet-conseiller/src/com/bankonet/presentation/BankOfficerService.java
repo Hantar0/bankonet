@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.bankonet.cache.CacheClient;
-import com.bankonet.cache.CacheAccount;
+import com.bankonet.cache.CacheCompte;
 import com.bankonet.constantes.TypeCompte;
 import com.bankonet.dto.Client;
 import com.bankonet.dto.Compte;
@@ -20,9 +20,9 @@ public class BankOfficerService {
 	private String mdp;
 	private CacheClient mapClient;
 	private SyncDataService saveFiles;
-	private CacheAccount mapCompte;
+	private CacheCompte mapCompte;
 
-	public BankOfficerService(CacheClient mapClient, SyncDataService saveFiles, CacheAccount mapCompte) {
+	public BankOfficerService(CacheClient mapClient, SyncDataService saveFiles, CacheCompte mapCompte) {
 		this.login = "";
 		this.nom = "";
 		this.prenom = "";
@@ -113,11 +113,13 @@ public class BankOfficerService {
 			nouveauCompte = new CompteCourant(login, client.getNom(), client.getPrenom(),
 					client.getNumberAccount(TypeCompte.CC));
 			client.addCompte(nouveauCompte, TypeCompte.CC);
+			client.setComptes_courant(nouveauCompte.getLibelle());
 			mapCompte.ajouterCompte(nouveauCompte, TypeCompte.CC);
 		} else {
 			nouveauCompte = new CompteEpargne(login, client.getNom(), client.getPrenom(),
 					client.getNumberAccount(TypeCompte.CE));
 			client.addCompte(nouveauCompte, TypeCompte.CE);
+			client.setComptes_epargne(nouveauCompte.getLibelle());
 			mapCompte.ajouterCompte(nouveauCompte, TypeCompte.CE);
 		}
 		return nouveauCompte;

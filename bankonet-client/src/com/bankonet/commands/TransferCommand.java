@@ -1,6 +1,6 @@
 package com.bankonet.commands;
 
-import com.bankonet.cache.CacheAccount;
+import com.bankonet.cache.CacheCompte;
 import com.bankonet.cache.CacheClient;
 import com.bankonet.dto.Client;
 import com.bankonet.presentation.ManageAccount;
@@ -9,10 +9,10 @@ public class TransferCommand implements TheCommand {
 
 	private ManageAccount manageAccount;
 	private CacheClient cacheClient;
-	private CacheAccount cacheCompte;
+	private CacheCompte cacheCompte;
 	private Client user;	
 
-	public TransferCommand(ManageAccount manageAccount, CacheClient cacheClient, CacheAccount cacheCompte,
+	public TransferCommand(ManageAccount manageAccount, CacheClient cacheClient, CacheCompte cacheCompte,
 			Client user) {
 		super();
 		this.manageAccount = manageAccount;
