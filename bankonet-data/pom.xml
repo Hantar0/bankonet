@@ -4,6 +4,13 @@
 	<groupId>dta</groupId>
 	<artifactId>bankonet-data</artifactId>
 	<version>1.0.0</version>
+
+	<properties>
+		<jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
+		<jdbc.url>jdbc:mysql://localhost:3306/bankonet</jdbc.url>
+		<root>root</root>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -17,7 +24,6 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>sql-maven-plugin</artifactId>
-
 				<dependencies>
 					<!-- specify the dependent jdbc driver here -->
 					<dependency>
@@ -28,9 +34,9 @@
 				</dependencies>
 
 				<configuration>
-					<driver>org.gjt.mm.mysql.Driver</driver>
-					<url>jdbc:mysql://localhost:3306/bankonet</url>
-					<username>root</username>
+					<driver>${jdbc.driver}</driver>
+					<url>${jdbc.url}</url>
+					<username>${root}</username>
 					<password></password>
 				</configuration>
 
@@ -39,7 +45,7 @@
 					<!-- It creates integration test data before running the tests -->
 					<execution>
 						<id>clean-ddb</id>
-						<phase>process-test-resources</phase>
+						<phase>test</phase>
 						<goals>
 							<goal>execute</goal>
 						</goals>
@@ -47,8 +53,8 @@
 							<orderFile>ascending</orderFile>
 							<fileset>
 								<basedir>C:\Users\ETY\Desktop\Devs\Java\depotGitHub\bankonet\bankonet-data\src\sql</basedir>
-								<includes>								
-									<include>clean-db.sql</include>									
+								<includes>
+									<include>clean-db.sql</include>
 									<include>init-db.sql</include>
 								</includes>
 							</fileset>
@@ -61,7 +67,8 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>

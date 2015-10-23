@@ -7,10 +7,10 @@
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bankonet"/>
-			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value=""/>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="${jdbc.url}"/>
+			<property name="javax.persistence.jdbc.user" value="${jdbc.user}"/>
+			<property name="javax.persistence.jdbc.password" value="${jdbc.password}"/>
+			<property name="javax.persistence.jdbc.driver" value="${jdbc.driver}"/>
 			<property name="hibernate.show_sql" value="true"/>
 		</properties>
 	</persistence-unit>
