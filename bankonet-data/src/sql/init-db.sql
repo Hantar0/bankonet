@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `client` (
 
 
 
-INTO `compte` (`id`, `TYPE`, `Libelle`, `Solde`, `Numero`, `nom`, `prenom`, `login`) VALUES
+INSERT INTO `compte` (`id`, `TYPE`, `Libelle`, `Solde`, `Numero`, `nom`, `prenom`, `login`) VALUES
 (1, 'C', '[paul]_[henri]_COURANT_1', 25, 'CC1', 'paul', 'henri', 'ph'),
 (2, 'C', '[paul]_[henri]_COURANT_2', 100, 'CC2', 'paul', 'henri', 'ph'),
 (3, 'E', '[paul]_[henri]_EPARGNE_1', 200, 'CE1', 'paul', 'henri', 'ph'),
